@@ -11,9 +11,8 @@
 #include "endLines.h"
 
 int pixelBin[256] = {
-  1,1,0,0,0,0,0,0,1,0,0,0,0,0,0,0,
   0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-  0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+  1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
   0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
   0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
   0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
@@ -105,11 +104,12 @@ public:
           Serial.print("curr. Solenoid ID: "); Serial.println(currentSolenoidIDSetup);
 
               //WHAT IS THIS?
-          if(currentStitchSetup >= 0 && currentStitchSetup < 254){ //IF the head is within the switches....no. 200 is the left switch
+          if(currentStitchSetup >= 0 && currentStitchSetup < 200){ //IF the head is within the switches....no. 200 is the left switch
             
             currentPixState = pixelBin[currentStitchSetup]; //Pixel Bin is an array of 256 values. It pulls values from the Serial Port
            
             if(solenoidstateOn[i] != (currentPixState == 1) ){ //if the current solenoid is different from the pixelBin value
+              Serial.print("switching ");Serial.print(amegaPinsArray[i]);Serial.print(": ");Serial.println(currentPixState);
               digitalWrite(amegaPinsArray[i], currentPixState); //the that state to the Indexed Solenoid
               solenoidstateOn[i] = (currentPixState==1); //update array of current solenoid States
             }
@@ -138,9 +138,10 @@ public:
           Serial.print("curr. Solenoid ID: "); Serial.println(currentSolenoidIDSetup);
 
 
-          if(currentStitchSetup>=0 && currentStitchSetup<254){
+          if(currentStitchSetup >= 0 && currentStitchSetup < 200){
             currentPixState = pixelBin[currentStitchSetup];
             if( solenoidstateOn[i] !=(currentPixState==1) ){
+              Serial.print("switching ");Serial.print(amegaPinsArray[i]);Serial.print(": ");Serial.println(currentPixState);
               digitalWrite(amegaPinsArray[i], currentPixState);
               solenoidstateOn[i] = (currentPixState==1);
             }
@@ -148,7 +149,7 @@ public:
         }
       }
       // Set all solenoids OFF when end of line
-      if(myEncoders->encoder1Pos==0 || myEncoders->encoder1Pos==255  ){
+      if(myEncoders->encoder1Pos < 0 || myEncoders->encoder1Pos > 200  ){
         for(int i=0;i<16;i++){
           digitalWrite(amegaPinsArray[i], LOW);
           solenoidstateOn[i] = false; 
