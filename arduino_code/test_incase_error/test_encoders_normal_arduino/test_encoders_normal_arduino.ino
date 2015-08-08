@@ -1,8 +1,12 @@
 //Test of 
 
-int signalPin1 = 3;
-int signalPin2 = 4;
-int signalPin3 = 5;
+int signalPin1 = 2;
+int signalPin2 = 3;
+int signalPin3 = 4;
+int val1, val2, val3;
+int l_val1 = 0;
+int l_val2 = 0;
+int l_val3 = 0;
 
 void setup()
 {
@@ -13,7 +17,11 @@ void setup()
 }
 
 void loop(){
-  if(digitalRead(signalPin1)){
+  val1 = digitalRead(signalPin1);
+  val2 = digitalRead(signalPin2);
+  val3 = digitalRead(signalPin3);
+  
+  if(val1 != l_val1){
     Serial.println("A:ON");
   }else{
     Serial.println("A:OFF");

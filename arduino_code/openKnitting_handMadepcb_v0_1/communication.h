@@ -61,37 +61,38 @@ class communication {
         Serial.print(",");
         Serial.print(myEncoders->headDirection);
         Serial.print(",");
+        /*
         if (myEndlines->phase) {
           Serial.print("1");
         } else {
           Serial.print("0");
         }
-        //myEncoders->last_8segmentEncoder
-        //myEncoders->_8segmentEncoder
-        /*
+        myEncoders->last_8segmentEncoder;
+        myEncoders->_8segmentEncoder;
+        
         if(myEncoders->last_8segmentEncoder){
           Serial.print("1");
-        }else{
+        } else {
           Serial.print("0");
         }
         if(myEncoders->_8segmentEncoder){
           Serial.print("1");
-        }else{
+        } else {
           Serial.print("0");
         }
-        */
-        /*
+        
+        
         Serial.print(",");
         if(myEndlines->started){
           Serial.print("1");
         }else{
           Serial.print("0");
         }
-        */
-        /*
+        
+        
         Serial.print(",");
-        //Serial.print(_status);
-        //Serial.print(",");
+        Serial.print(_status);
+        Serial.print(",");
 
         for(int i=0;i<16;i++){
           if(mysolenoids->solenoidstateOn[i]){
@@ -100,8 +101,7 @@ class communication {
             Serial.print("0");
           }
         }
-        */
-        /*
+
         Serial.print(",");
         Serial.print(myEncoders->encoder1Pos);
         Serial.print(",");
@@ -109,11 +109,11 @@ class communication {
         Serial.print(",");
         Serial.print(mysolenoids->currentSolenoidIDSetup);
         Serial.print(",");
-        */
-        //Serial.print(mysolenoids->currentPixState);
-        //Serial.print(",");
 
-        /*
+        Serial.print(mysolenoids->currentPixState);
+        Serial.print(",");
+
+        
         Serial.print(myEndlines->valueEndLineLeft);
         Serial.print(",");
         Serial.print(myEndlines->valueEndLineRight);
@@ -122,8 +122,8 @@ class communication {
         Serial.print(myEncoders->directionEncoders);
         Serial.print(",");
         Serial.print(myEncoders->lastDirectionEncoders);
-        */
-
+        
+*/
         Serial.println(lf);
         myEncoders->lastencoder1Pos = myEncoders->encoder1Pos;
       }

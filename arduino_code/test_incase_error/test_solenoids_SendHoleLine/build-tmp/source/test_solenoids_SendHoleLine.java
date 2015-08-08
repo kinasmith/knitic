@@ -1,4 +1,22 @@
-import processing.serial.*;
+import processing.core.*; 
+import processing.data.*; 
+import processing.event.*; 
+import processing.opengl.*; 
+
+import processing.serial.*; 
+
+import java.util.HashMap; 
+import java.util.ArrayList; 
+import java.io.File; 
+import java.io.BufferedReader; 
+import java.io.PrintWriter; 
+import java.io.InputStream; 
+import java.io.OutputStream; 
+import java.io.IOException; 
+
+public class test_solenoids_SendHoleLine extends PApplet {
+
+
 
 int[] pixelReceived = {
   0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
@@ -78,7 +96,7 @@ String statusMachine;
 int h_window = 10;
 int w_window = (h_window/2)*200;
 
-void setup(){
+public void setup(){
   size(w_window, h_window);
   //String portName = Serial.list()[2];
  // println(portName);
@@ -86,7 +104,7 @@ void setup(){
  // myPort.clear();
 }
 
-void draw(){
+public void draw(){
   for (int i=0; i<200; i++) {
     if (pixelSend[i] == 0) {
       fill(0, 0, 255);
@@ -96,7 +114,7 @@ void draw(){
     rect(i*height/2, 0, height/2, height/2);
   }
   for (int i=0; i<200; i++) {
-    if (pixelReceived[i] == 0) {
+    if (pixelReceived[i]==0) {
       fill(100, 0, 255);
     } else {
       fill(255, 255, 255);
@@ -106,8 +124,8 @@ void draw(){
  // receiveSerial();
 }
 
-
-void checkBetweenSendAndReceived(){
+/*
+void chechBetweenSendAndReceived(){
   for (int i=0; i<200; i++) {
     if(pixelSend[i] != pixelReceived[i] ){
       sendtoKnittingMachine();
@@ -118,44 +136,39 @@ void checkBetweenSendAndReceived(){
 
 void receiveSerial() {
   try {
-    int timeStart = millis(); //What is this Start Time For?...waits for Serial to engage? 
-    //serialAvailableBuffer = myPort.available(); //Why is this commented out?
-    while (myPort != null && myPort.available () > 0 && (millis() - timeStart < 300 )) {
+    int timeStart = millis();
+    //serialAvailableBuffer = myPort.available();
+    while (myPort!=null && myPort.available ()>0  && (millis()-timeStart<300 )) {
       println("Receive Serial___"+Integer.toString(myPort.available()));
       myString = myPort.readStringUntil(lf); //read string that Arduino is puking out
-      // PIXELS stored now in arduino --> This doesn't mean anything?
+      // PIXELS stored now in arduino
       try {
-        //If there is a string that is not empty and longer than 200
-        
-        if (myString != null && myString.length() > 200) {
-          println("received:" + myString);
-          for (int i = 0; i < 200; i++) {
-            if (myString.substring(i, i+1).equals("0")) { //if any character..substring one character long == 0
-              pixelReceived[i] = 0; //receive a 0
+        if (myString != null && myString.length()>200) {
+          println("received:"+myString);
+          for (int i=0; i<200; i++) {
+            if (myString.substring(i, i+1).equals("0")) {
+              pixelReceived[i] = 0;
             }
-            else { //otherwise
-              pixelReceived[i] = 1; //receive a 1
+            else {
+              pixelReceived[i] = 1;
             }
           }
-            //This expects a string of JUST the data that was sent to the Arduino. Where is the sketch that goes with this?
-
+          
           for (int i=0; i<200; i++) {
-            if (pixelReceived[i] != pixelSend[i]) { //IF the received data == the sent data
-              sendtoKnittingMachine(); //Send the data to the machine. 
+            if (pixelReceived[i]!=pixelSend[i]) {
+              sendtoKnittingMachine();
               break;
             }
           }
         }
       }
-
       catch(Exception e) {
       }
       // Data sensors from arduino (encoders, endlines)
-      if (myString != null && myString.length() < 200) {
+      if (myString != null && myString.length()<200) {
           println("received small:"+myString);
-          String[] args = myString.split(","); //makes an Array of strings split on the ','
-          //pulls sensor values out of data string
-          if (args.length>2) { 
+          String[] args = myString.split(",");
+          if (args.length>2) {
             stitch = Integer.valueOf(args[0]);
             endLineStarted = !args[1].equals("0");
             headDirection = Integer.valueOf(args[2]);
@@ -190,4 +203,14 @@ void sendtoKnittingMachine() {
     myPort.write(pixelSend[i]);
   }
   myPort.write(footer);
+}
+*/
+  static public void main(String[] passedArgs) {
+    String[] appletArgs = new String[] { "test_solenoids_SendHoleLine" };
+    if (passedArgs != null) {
+      PApplet.main(concat(appletArgs, passedArgs));
+    } else {
+      PApplet.main(appletArgs);
+    }
+  }
 }

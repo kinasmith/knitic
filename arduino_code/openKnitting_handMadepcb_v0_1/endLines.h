@@ -6,10 +6,10 @@
 
 class endLines{
 private:
-  soundAlerts* mySoundAlerts;
+  soundAlerts* mySoundAlerts; //Pointer for soundAlert....Array?
   // analog arduino pin
-  int endLineLeftAPin;
-  int endLineRightAPin;
+  int endLineLeftAPin; //endline LEFT Analog Pin
+  int endLineRightAPin; //endline RIGHT Analog Pin
   encoders* myEncoders;
   int filterValueLeftMin;
   int filterValueRightMin;
@@ -21,7 +21,7 @@ private:
 public:
   int valueEndLineLeft;
   int valueEndLineRight;
-  int phase;
+  int phase; //phase is what side of the machine it's on?...
   endLines(){
   }
   ~endLines(){
@@ -32,7 +32,8 @@ public:
     maxRight= 0;
     endLineLeftAPin = 1;
     endLineRightAPin = 0;
-    filterValueLeftMin = 10;
+    //setup trigger levels for the switch
+    filterValueLeftMin = 10; 
     filterValueRightMin = 10;
     filterValueLeftMax = 460;
     filterValueRightMax = 460;
@@ -47,7 +48,7 @@ public:
     // Left end of line - looking change phase
     if( myEncoders->headDirection==-1){
       valueEndLineLeft  = analogRead(endLineLeftAPin);
-      if( valueEndLineLeft <filterValueLeftMin || analogRead(endLineLeftAPin) >filterValueLeftMax){ 
+      if( valueEndLineLeft < filterValueLeftMin || analogRead(endLineLeftAPin) > filterValueLeftMax){ 
         if(myEncoders->_8segmentEncoder){
           phase = 1;
         }

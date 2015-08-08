@@ -1,5 +1,7 @@
 int amegaPinsArray[16];
 
+int 
+
 void setup() {
   int amegaPinsArrayTemp[16] = {
     37,35,33,31,29,27,25,23,22,24,26,28,30,32,34,36        
@@ -10,8 +12,10 @@ void setup() {
     pinMode(amegaPinsArray[i], OUTPUT);
     digitalWrite(amegaPinsArray[i], LOW);
   }
-  
-  digitalWrite(amegaPinsArray[0], HIGH);
+  //for(int j = 0; i < 
+    for(int i=0; i < 16; i = i++) {
+      digitalWrite(amegaPinsArray[0], HIGH);
+    }
 }
 
 void loop() {

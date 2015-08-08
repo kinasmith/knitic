@@ -58,13 +58,13 @@ void autoConnectAndReceiveSerial(Serial p) {
 //------------------------------------------------------------------------------------
 
 void sendtoKnittingMachine() {
-  if (current_row>=0) {
+  if (current_row >= 0) {
     lastSerialPixelSend = millis();
     try {
       for (int i=0; i<200; i++) {
         pixelSend[i] = 1;
       }
-      for (int i=0; i<200; i++) {
+      for (int i=0; i < 200; i++) {
         int rightStickOffset = 100-rightStick;
         int posXPixel = 199-(i+rightStickOffset);
         int posYPixel = (rows-1)-current_row;
