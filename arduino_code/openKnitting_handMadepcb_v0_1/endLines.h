@@ -22,6 +22,7 @@ public:
   int valueEndLineLeft;
   int valueEndLineRight;
   int phase; //phase is what side of the machine it's on?...
+  //
   endLines(){
   }
   ~endLines(){
@@ -45,8 +46,10 @@ public:
   }
 
   void loop(){
+    // -1 is moving from left to RIGHT
+    // 1 is moving from right to LEFT
     // Left end of line - looking change phase
-    if( myEncoders->headDirection==-1){
+    if( myEncoders->headDirection == -1){
       valueEndLineLeft  = analogRead(endLineLeftAPin);
       if( valueEndLineLeft < filterValueLeftMin || analogRead(endLineLeftAPin) > filterValueLeftMax){ 
         if(myEncoders->_8segmentEncoder){

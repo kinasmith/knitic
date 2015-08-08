@@ -178,6 +178,7 @@ class communication {
     }
 
     // get data from processing
+    
     void receiveRealtimeFromComputer() {
       boolean isReceived = false;
       char buffer[2];
