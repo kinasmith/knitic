@@ -1,0 +1,8 @@
+ ☐ Understand code:
+
+ I need to decode Serial Communication
+
+ ☐ Find communication in the processing sketch and mirror it so it prints out and I can see it. 
+ ☐ Also print out all the incoming Arduino messages as well to see what it is saying
+
+ ☐ From there, reference the messages and the code and figure out what each one means, and where the communication is going wrong. 

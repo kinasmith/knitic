@@ -54,77 +54,78 @@ class communication {
     // send data to processing
 
     void sendSerialToComputer() {
-      if ( (myEncoders->lastencoder1Pos != myEncoders->encoder1Pos)  || (millis() - lastSendTimeStamp) > 500 ) {
-        lastSendTimeStamp = millis();
-        Serial.print(",");
-        Serial.print(myEncoders->stitch);
-        Serial.print(",");
-        Serial.print(myEncoders->headDirection);
-        Serial.print(",");
+      if ( (myEncoders->lastencoder1Pos != myEncoders->encoder1Pos)  || (millis() - lastSendTimeStamp) > 500 ) { //send data to processing if head moves, or 500ms has elapsed
+        lastSendTimeStamp = millis(); //save timestamp
+        //
+        //Serial.print(",");
+        //Serial.print(myEncoders->stitch);
+        //Serial.print(",");
+        //Serial.print(myEncoders->headDirection);
+        //Serial.print(",");
         /*
         if (myEndlines->phase) {
-          Serial.print("1");
+          //Serial.print("1");
         } else {
-          Serial.print("0");
+          //Serial.print("0");
         }
         myEncoders->last_8segmentEncoder;
         myEncoders->_8segmentEncoder;
         
         if(myEncoders->last_8segmentEncoder){
-          Serial.print("1");
+          //Serial.print("1");
         } else {
-          Serial.print("0");
+          //Serial.print("0");
         }
         if(myEncoders->_8segmentEncoder){
-          Serial.print("1");
+          //Serial.print("1");
         } else {
-          Serial.print("0");
+          //Serial.print("0");
         }
         
         
-        Serial.print(",");
+        //Serial.print(",");
         if(myEndlines->started){
-          Serial.print("1");
+          //Serial.print("1");
         }else{
-          Serial.print("0");
+          //Serial.print("0");
         }
         
         
-        Serial.print(",");
-        Serial.print(_status);
-        Serial.print(",");
+        //Serial.print(",");
+        //Serial.print(_status);
+        //Serial.print(",");
 
         for(int i=0;i<16;i++){
           if(mysolenoids->solenoidstateOn[i]){
-            Serial.print("1");
+            //Serial.print("1");
           }else{
-            Serial.print("0");
+            //Serial.print("0");
           }
         }
 
-        Serial.print(",");
-        Serial.print(myEncoders->encoder1Pos);
-        Serial.print(",");
-        Serial.print(mysolenoids->currentStitchSetup );
-        Serial.print(",");
-        Serial.print(mysolenoids->currentSolenoidIDSetup);
-        Serial.print(",");
+        //Serial.print(",");
+        //Serial.print(myEncoders->encoder1Pos);
+        //Serial.print(",");
+        //Serial.print(mysolenoids->currentStitchSetup );
+        //Serial.print(",");
+        //Serial.print(mysolenoids->currentSolenoidIDSetup);
+        //Serial.print(",");
 
-        Serial.print(mysolenoids->currentPixState);
-        Serial.print(",");
+        //Serial.print(mysolenoids->currentPixState);
+        //Serial.print(",");
 
         
-        Serial.print(myEndlines->valueEndLineLeft);
-        Serial.print(",");
-        Serial.print(myEndlines->valueEndLineRight);
+        //Serial.print(myEndlines->valueEndLineLeft);
+        //Serial.print(",");
+        //Serial.print(myEndlines->valueEndLineRight);
 
-        Serial.print(",");
-        Serial.print(myEncoders->directionEncoders);
-        Serial.print(",");
-        Serial.print(myEncoders->lastDirectionEncoders);
+        //Serial.print(",");
+        //Serial.print(myEncoders->directionEncoders);
+        //Serial.print(",");
+        //Serial.print(myEncoders->lastDirectionEncoders);
         
 */
-        Serial.println(lf);
+        //Serial.println(lf);
         myEncoders->lastencoder1Pos = myEncoders->encoder1Pos;
       }
     }
@@ -168,12 +169,12 @@ class communication {
     }
     // send to processing
     void sendCurrentPixelArray() {
-      Serial.println(lf);
+      //Serial.println(lf);
       for (int i = 0; i < 200; i++) {
         pixelBin[i] = receivedBin[i];
-        Serial.print(String(pixelBin[i]));
+        //Serial.print(String(pixelBin[i]));
       }
-      Serial.println(lf);
+      //Serial.println(lf);
     }
 
     // get data from processing

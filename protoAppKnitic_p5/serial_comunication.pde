@@ -116,19 +116,19 @@ void sendtoKnittingMachine() {
           }
         }
         catch(Exception e) {
-          println("Error in pixels => x:"+posXPixel+" y:"+posYPixel);
+         // println("Error in pixels => x:"+posXPixel+" y:"+posYPixel);
           pixelSend[i] = 1;
         }
       }
 
-      println("send to machine:"+Integer.toString((rows-1)-current_row));
+      //println("send to machine:"+Integer.toString((rows-1)-current_row));
       String pixToSend ="";
       for (int i=0; i<200; i++) {
         pixToSend +=Integer.toString(pixelSend[i]);
         myPort.write(pixelSend[i]);
       }
       pixToSend +=footer;
-      println("send:"+pixToSend);
+      //println("send:"+pixToSend);
       myPort.write(footer);
       waitingMessageFromKnitting = true;
       pixSendAreReceived = false;
@@ -177,26 +177,27 @@ void receiveSerial(Serial p) {
     // PIXELS stored now in Arduino
     try {
       if (myString != null && myString.length()>200) {
-        println("Recieved new pixels:"+myString);
+        //println("Recieved new pixels:"+myString);
         receiveMessageTypeB(myString);
       }
     }
     catch(Exception e) {
-      println("Error receiving pixels:"+myString);
+      //println("Error receiving pixels:"+myString);
     }
     // Data sensors from arduino (encoders, endlines)
     try {
       if (myString != null && myString.length()<200) {
-        //println("Recieved new sensors:"+myString);
+        println("Recieved new sensors:"+myString);
+       println(myString);
         receiveMessageTypeA(myString);
       }
     }
     catch(Exception e) {
-      println("Error Sensors:"+myString);
+     // println("Error Sensors:"+myString);
     }
   }
   catch(Exception e) {
-    println("ERROR in Receive serial "+e.getMessage()+"|");
+    //println("ERROR in Receive serial "+e.getMessage()+"|");
   }
 }
 
@@ -212,7 +213,7 @@ void receiveMessageTypeA(String myString) {
     shift = !args[3].equals("0");
     //statusMachine 
     /*
-             if(args.length>=6) solenoidsFromArduino = args[5];
+     if(args.length>=6) solenoidsFromArduino = args[5];
      if(args.length>=7) currentSolenoidIDSetup = Integer.valueOf(args[6]);
      if(args.length>=8) stitchSetupArduino = Integer.valueOf(args[7]);
      if(args.length>=9) pixStateArduino = Integer.valueOf(args[8]);
@@ -264,11 +265,10 @@ void convertSolenoidsToBinary() {
 void checkBetweenSendAndReceived() {
   try {
     boolean correct = true;
-
     for (int i=0; i<200; i++) {
       if (pixelSend[i]!=pixelReceived[i] ) {
         if (!waitingMessageFromKnitting || (millis()-lastSerialPixelSend)>100 ) {
-          println("Find differents");
+          //println("Find differents");
           sendtoKnittingMachine();
         }
         correct = false;
@@ -278,8 +278,8 @@ void checkBetweenSendAndReceived() {
     if (correct && !pixSendAreReceived) {
       sent.trigger();
       pixSendAreReceived = true;
-      println("Check and all correct SEND/RECEIVE");
-      println("-------------------------------------------");
+      //println("Check and all correct SEND/RECEIVE");
+     // println("-------------------------------------------");
     }
   }
   catch(Exception e) {
